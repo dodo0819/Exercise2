@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         image = findViewById(R.id.imageViewProfile)
 
-        val result = editWeight.text.toString().toDouble() / (editHeight.text.toString().toFloat() * editHeight.text.toString().toFloat())
+        val result = editWeight.text.toString().toFloat() / (editHeight.text.toString().toFloat() * editHeight.text.toString().toFloat())
 
         if(result <= 18.5){
             bmi.text = result.toString()
