@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,18 +35,20 @@ class MainActivity : AppCompatActivity() {
 
         image = findViewById(R.id.imageViewProfile)
 
-        val result = editWeight.text.toString().toFloat() / (editHeight.text.toString().toFloat() * editHeight.text.toString().toFloat())
+        val result = editWeight.text.toString().toDouble() / ((editHeight.text.toString().toDouble() / 100) * (editHeight.text.toString().toDouble() / 100))
+        val number = java.lang.Double.valueOf(result)
+        val dec = DecimalFormat("#.##")
+        val r = dec.format(number)
 
         if(result <= 18.5){
-            bmi.text = result.toString()
             image.setImageResource(R.drawable.under)
         } else if (result >= 18.5 && result <= 24.9) {
-            bmi.text = result.toString()
             image.setImageResource(R.drawable.normal)
         } else if (result >= 25){
-            bmi.text = result.toString()
             image.setImageResource(R.drawable.over)
         }
+
+        bmi.text = r
 
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
@@ -62,5 +65,8 @@ class MainActivity : AppCompatActivity() {
         editHeight.getText().clear()
         image.setImageResource(R.drawable.empty)
         bmi.setText(R.string.bmi)
+
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
